@@ -14,7 +14,23 @@ io.on('connection',(socket)=>{
 
   socket.on('disconnect',()=>{
     console.log('client disconnected');
-  })
+  });
+
+  socket.emit('newMessage',{
+    "from":"pankaj",
+    "message":"hi",
+    "timeStamp":new Date().getTime()
+  });
+
+  socket.on('createMessage',(message)=>{
+    var m={
+      "from":message.from,
+      "message":message.message,
+      "timeStamp":new Date().getTime()
+    }
+
+    console.log('message',m);
+  });
 });
 
 app.use(express.static(publicPath));
